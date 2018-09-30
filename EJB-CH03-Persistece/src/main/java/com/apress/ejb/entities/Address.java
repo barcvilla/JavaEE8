@@ -23,7 +23,7 @@ import javax.persistence.Table;
 @Table(name = "address")
 @NamedQueries({@NamedQuery(name = "Address.findAll", query = "select ad from Address ad")})
 public class Address implements Serializable{
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

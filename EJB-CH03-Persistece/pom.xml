@@ -8,13 +8,37 @@
     <packaging>war</packaging>
 
     <name>EJB-CH03-Persistece</name>
-
-    <properties>
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
     
     <dependencies>
+        <!--
+        <dependency>
+            <groupId>org.glassfish.extras</groupId>
+            <artifactId>glassfish-embedded-static-shell</artifactId>
+            <version>4.1.2</version>
+            <scope>system</scope>
+            <systemPath>C:\AppServers\glassfish4\glassfish\lib\embedded\glassfish-embedded-static-shell.jar</systemPath>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.glassfish.main.appclient</groupId>
+            <artifactId>gf-client</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        -->
+        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>1.3</version>
+            <scope>test</scope>
+        </dependency>
+        
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -68,18 +92,44 @@
             <version>2.1.0</version>
         </dependency>
     </dependencies>
+    
+    <properties>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <!--
+        <glassfish.embedded-static-shell.jar>
+            C:\AppServers\glassfish4\glassfish\lib\embedded\glassfish-embedded-static-shell.jar
+        </glassfish.embedded-static-shell.jar>
+        -->
+    </properties>
 
     <build>
         <plugins>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.4</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.7.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                     <compilerArguments>
                         <endorseddirs>${endorsed.dir}</endorseddirs>
+                        <proc:none/>
+                        <Xlint/>
+                        <Xlint:-path/>
+                        <verbose/>
                     </compilerArguments>
                 </configuration>
             </plugin>
