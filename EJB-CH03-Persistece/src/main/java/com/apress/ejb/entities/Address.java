@@ -40,6 +40,15 @@ public class Address implements Serializable{
     @Column(name = "zip_code")
     private int zipCode;
     
+    /**
+     * Si queremo hacer una relacion bi-direccional entre Address - Customer
+     * @OneToOne(mappedBy="address") //address es el atributo en la otra entidad en este caso Customer
+     * private Customer customer
+     * Si utilizamos (mappedBy="address") no hay necesidad de utilizar @JoinColumn con Address.customer.
+     * Para conseguir una relacion uni-direccional pero en la direccion de Address a Customer. Movemos la anotacion
+     * @JoinColumn de Customer.address hacia Address.customer y luego removemos el atributo Customer.address
+     */
+    
     public Address(){}
 
     public int getId() {

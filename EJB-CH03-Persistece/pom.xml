@@ -10,7 +10,7 @@
     <name>EJB-CH03-Persistece</name>
     
     <dependencies>
-        <!--
+        
         <dependency>
             <groupId>org.glassfish.extras</groupId>
             <artifactId>glassfish-embedded-static-shell</artifactId>
@@ -24,7 +24,7 @@
             <artifactId>gf-client</artifactId>
             <version>4.1.2</version>
         </dependency>
-        -->
+        
         
         <dependency>
             <groupId>junit</groupId>
@@ -98,16 +98,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <!--
+        
         <glassfish.embedded-static-shell.jar>
             C:\AppServers\glassfish4\glassfish\lib\embedded\glassfish-embedded-static-shell.jar
         </glassfish.embedded-static-shell.jar>
-        -->
+       
     </properties>
 
     <build>
         <plugins>
-            
+            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -116,7 +116,8 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
-            
+            -->
+                        
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

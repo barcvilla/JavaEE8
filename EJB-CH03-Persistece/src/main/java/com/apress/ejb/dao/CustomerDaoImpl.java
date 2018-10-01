@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class CustomerDaoImpl implements CustomerDao{
-    
+    // Usamos container injection para obtener una instancia del EntityManager
     @PersistenceContext(unitName = "rrhhpersistence")
     EntityManager em;
     

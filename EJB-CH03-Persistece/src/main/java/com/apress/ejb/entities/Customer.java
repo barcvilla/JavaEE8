@@ -48,13 +48,13 @@ public class Customer implements Serializable{
     private List<CustomerOrder> customerOrders;
     
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "shipping_address")
+    @JoinColumn(name = "shipping_address", referencedColumnName = "id")
     private Address shippingAddress;
     
     private String email;
     
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "billing_address")
+    @JoinColumn(name = "billing_address", referencedColumnName = "id")
     private Address billingAddress;
     
     public Customer()
@@ -76,6 +76,25 @@ public class Customer implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public CustomerOrder addCustomerOrder(CustomerOrder customerOrder)
+    {
+        if(customerOrders == null)
+        {
+            customerOrders = new ArrayList<CustomerOrder>();
+        }
+        
+        customerOrders.add(customerOrder);
+        customerOrder.setCustomer(this);
+        return customerOrder;
+    }
+    
+    public CustomerOrder removeCustomerOrder(CustomerOrder customerOrder)
+    {
+        getCustomerOrders().remove(customerOrder);
+        customerOrder.setCustomer(null);
+        return customerOrder;
     }
 
     public List<CustomerOrder> getCustomerOrders() {
@@ -108,11 +127,6 @@ public class Customer implements Serializable{
 
     public void setEmail(String email) {
         this.email = email;
-    }
-    
-    public void addCustomerOrder(CustomerOrder customerOrder)
-    {
-        customerOrders.add(customerOrder);
     }
     
 }

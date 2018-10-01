@@ -7,6 +7,7 @@ package test;
 
 import com.apress.ejb.entities.Address;
 import com.apress.ejb.entities.Customer;
+import com.apress.ejb.entities.CustomerOrder;
 import com.apress.ejb.service.CustomerService;
 import java.util.List;
 import javax.ejb.embeddable.EJBContainer;
@@ -34,15 +35,15 @@ public class CustomerServiceTest {
     @Test
     public void testEJB()
     {
-        getAllCustomerTest();
         //addCustomerTest();
+        getAllCustomerTest();
     }
     
     public void getAllCustomerTest()
     {
         System.out.println("Iniciando Test Get All Customers");
         assertTrue(customerService != null);
-        assertEquals(1, customerService.getCustomerFindAll().size());
+        assertEquals(2, customerService.getCustomerFindAll().size());
         System.out.println("El no de Customers es igual a " + customerService.getCustomerFindAll().size());
         this.showCustomers(customerService.getCustomerFindAll());
         System.out.println("Fin test EJB CustomerService");
@@ -53,30 +54,47 @@ public class CustomerServiceTest {
         System.out.println("Iniciando Test Add Customer");
         assertTrue(customerService != null);
         
-        Address address = new Address();
-        address.setId(3);
-        address.setStreet1("Calle 123");
-        address.setStreet2("Calle 234");
-        address.setCity("BA");
-        address.setZipCode(123);
+        Address shippinAddress = new Address();
+        shippinAddress.setStreet1("La Habana 382");
+        shippinAddress.setStreet2("Y Quiroz");
+        shippinAddress.setCity("Jose C. Paz");
+        shippinAddress.setState("BA");
+        shippinAddress.setZipCode(1665);
+        
+        Address billingAddress = new Address();
+        billingAddress.setStreet1("AV. Calle Libertador");
+        billingAddress.setStreet2("Y Rivadabia 6000");
+        billingAddress.setCity("Don Torcuato");
+        billingAddress.setState("BA");
+        billingAddress.setZipCode(1689);
         
         Customer cus = new Customer();
-        cus.setName("Mariana Prado");
-        cus.setShippingAddress(address);
-        cus.setEmail("m.prado@gmail.com");
-        cus.setBillingAddress(address);
+        cus.setName("Carlos Palomino Jonas");
+        cus.setShippingAddress(shippinAddress);
+        cus.setEmail("c.palomino@gmail.com");
+        cus.setBillingAddress(billingAddress);
         
         customerService.addCustomer(cus);
-        
-        assertEquals(3, customerService.getCustomerFindAll().size());
-        this.showCustomers(customerService.getCustomerFindAll());
     }
     
-    public void showCustomers(List<Customer> customers)
+    private void showCustomers(List<Customer> customers)
     {
         for(Customer customer : customers)
         {
             System.out.println(customer.getName());
+            if(customer.getCustomerOrders().size() > 0)
+            {
+                System.out.println("Los pedidos para el cliente:  '"+ customer.getName() +"'\t");
+                for(CustomerOrder order : customer.getCustomerOrders())
+                {
+                    System.out.println("Order Id: "+order.getId()+ " date: "+order.getCreationDate()+ " Status: "+order.getStatus()+ " Total: "+order.getTotal());
+                }
+            }
+            else
+            {
+                System.out.println("El cliente '" + customer.getName() + "' no tiene pedidos registrados");
+            }
+            
         }
     }
 }
