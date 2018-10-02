@@ -6,6 +6,7 @@
 package com.apress.ejb.dao;
 
 import com.apress.ejb.entities.Customer;
+import com.apress.ejb.entities.CustomerOrder;
 import java.util.List;
 
 /**
@@ -19,5 +20,4 @@ public interface CustomerDao {
     public List<Customer> getCustomerFindAll();
     public Customer getCustomerFindById(int id);
     public Customer getCustomerFindByEmail(String email);
-    public Customer getCustomerFindByIdWithOrders(int id);
 }

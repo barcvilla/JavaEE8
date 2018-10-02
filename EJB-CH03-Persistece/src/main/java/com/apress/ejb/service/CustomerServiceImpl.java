@@ -7,6 +7,7 @@ package com.apress.ejb.service;
 
 import com.apress.ejb.dao.CustomerDao;
 import com.apress.ejb.entities.Customer;
+import com.apress.ejb.entities.CustomerOrder;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
@@ -81,10 +82,4 @@ public class CustomerServiceImpl implements CustomerService{
     public Customer getCustomerFindByEmail(String email) {
         return customerDao.getCustomerFindByEmail(email);
     }
-
-    @Override
-    public Customer getCustomerFindByIdWithOrders(int id) {
-        return customerDao.getCustomerFindByIdWithOrders(id);
-    }
-    
 }

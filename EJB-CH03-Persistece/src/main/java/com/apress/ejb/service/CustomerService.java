@@ -6,6 +6,7 @@
 package com.apress.ejb.service;
 
 import com.apress.ejb.entities.Customer;
+import com.apress.ejb.entities.CustomerOrder;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -21,5 +22,4 @@ public interface CustomerService {
     public List<Customer> getCustomerFindAll();
     public Customer getCustomerFindById(int id);
     public Customer getCustomerFindByEmail(String email);
-    public Customer getCustomerFindByIdWithOrders(int id);
 }

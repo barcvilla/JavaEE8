@@ -51,10 +51,4 @@ public class CustomerDaoImpl implements CustomerDao{
     public Customer getCustomerFindByEmail(String email) {
         return em.createNamedQuery("Customer.findByEmail", Customer.class).setParameter("email", email).getSingleResult();
     }
-
-    @Override
-    public Customer getCustomerFindByIdWithOrders(int id) {
-        return em.createNamedQuery("Customer.findOrderById", Customer.class).setParameter("id", id).getSingleResult();
-    }
-    
 }

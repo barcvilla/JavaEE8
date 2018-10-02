@@ -36,7 +36,8 @@ public class CustomerServiceTest {
     public void testEJB()
     {
         //addCustomerTest();
-        getAllCustomerTest();
+        //getAllCustomerTest();
+        getCustomerByIdTest(1);
     }
     
     public void getAllCustomerTest()
@@ -75,6 +76,21 @@ public class CustomerServiceTest {
         cus.setBillingAddress(billingAddress);
         
         customerService.addCustomer(cus);
+    }
+    
+    public void getCustomerByIdTest(int id)
+    {
+        Customer customer = customerService.getCustomerFindById(id);
+        showCustomerOrderDetail(customer);
+    }
+    
+    private void showCustomerOrderDetail(Customer customer)
+    {
+        System.out.println("Lista de Ordenes para el cliente: " + customer.getName());
+        for(CustomerOrder order : customer.getCustomerOrders())
+        {
+            System.out.println("Order Id: "+order.getId()+ " date: "+order.getCreationDate()+ " Status: "+order.getStatus()+ " Total: "+order.getTotal());
+        }
     }
     
     private void showCustomers(List<Customer> customers)
