@@ -10,6 +10,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -33,6 +35,7 @@ public abstract class Person implements Serializable{
     private static final long serialVersionUID = 5291172566067954515L;
     @Id
     @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     @Column(name = "first_name", length = 400)
@@ -41,6 +44,11 @@ public abstract class Person implements Serializable{
     @Column(name = "last_name", length = 400)
     private String lastName;
     
+    /**
+     * Debido a que no hay un campo correspondiente en la entidad Address que referencie a Person, esta es una relacion
+     * uni-direccional. CasacadeType.ALL indica que todas las operacion realizadas sobre la entidad Persona se aplicaran
+     * tambien al hombre homeAddress de tipo Address.
+     */
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "home_address", referencedColumnName = "id")
     private Address homeAddress;
