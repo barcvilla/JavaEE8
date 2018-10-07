@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * @author PC
  */
 @Entity
-@NamedQueries({@NamedQuery(name = "PartTimeEmployee.findAll", query = "select pte from PartTimeEmployee")})
+@NamedQueries({@NamedQuery(name = "PartTimeEmployee.findAll", query = "select pte from PartTimeEmployee pte")})
 @Table(name = "ch04_st_person")
 public class PartTimeEmployee extends Employee implements Serializable{
     private static final long serialVersionUID = 4017999239159878209L;
