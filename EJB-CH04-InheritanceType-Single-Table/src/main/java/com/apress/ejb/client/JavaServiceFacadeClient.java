@@ -6,8 +6,10 @@
 package com.apress.ejb.client;
 
 import com.apress.ejb.entities.Address;
+import com.apress.ejb.entities.Employee;
 import com.apress.ejb.entities.FullTimeEmployee;
 import com.apress.ejb.entities.PartTimeEmployee;
+import com.apress.ejb.entities.Person;
 import com.apress.ejb.service.JavaServiceFacade;
 import java.util.List;
 
@@ -90,8 +92,100 @@ public class JavaServiceFacadeClient {
         }
     }
     
+    //print employees
+    private static void printEmployee(Employee employee)
+    {
+        System.out.println("Department :" + employee.getDepartment());
+        System.out.println("Email: " + employee.getEmail());
+        System.out.println("Manager: " + employee.getManager());
+        System.out.println("First Name: " + employee.getFirstName());
+        System.out.println("Id: " + employee.getId());
+        System.out.println("Last Name: " + employee.getLastName());
+        System.out.println("Version: " + employee.getVersion());
+        System.out.println("Home Address: " + employee.getHomeAddress());
+    }
+    
+    public static void printFullTimeEmployee(FullTimeEmployee fullTimeEmployee)
+    {
+        System.out.println("Annual Saalry: " + fullTimeEmployee.getAnnualSalary());
+        System.out.println("Managed Employees: " + fullTimeEmployee.getManagedEmployees());
+        System.out.println("Department: " + fullTimeEmployee.getDepartment());
+        System.out.println("Email: " + fullTimeEmployee.getEmail());
+        System.out.println("Manager: " + fullTimeEmployee.getManager());
+        System.out.println("Firt Name: " + fullTimeEmployee.getFirstName());
+        System.out.println("Id: " + fullTimeEmployee.getId());
+        System.out.println("Last Name: " + fullTimeEmployee.getLastName());
+        System.out.println("Version: " + fullTimeEmployee.getVersion());
+        System.out.println("Home Address: " + fullTimeEmployee.getHomeAddress());
+    }
+    
+    public static void printPartTimeEmployee(PartTimeEmployee partTimeEmployee)
+    {
+        System.out.println("HourlyWage: " + partTimeEmployee.getHourlyWage());
+        System.out.println("Department: " + partTimeEmployee.getDepartment());
+        System.out.println("Email: " + partTimeEmployee.getEmail());
+        System.out.println("Manager: " + partTimeEmployee.getManager());
+        System.out.println("Firt Name: " + partTimeEmployee.getFirstName());
+        System.out.println("Id: " + partTimeEmployee.getId());
+        System.out.println("Last Name: " + partTimeEmployee.getLastName());
+        System.out.println("Version: " + partTimeEmployee.getVersion());
+        System.out.println("Home Address: " + partTimeEmployee.getHomeAddress());
+    }
+    
+    public static void printPerson(Person person)
+    {
+        System.out.println("First Name: " + person.getFirstName());
+        System.out.println("Id: " + person.getId());
+        System.out.println("Last Name: " + person.getLastName());
+        System.out.println("Version: " + person.getVersion());
+        System.out.println("Home Address: " + person.getHomeAddress());
+    }
+    
+    public static void printAddress(Address address)
+    {
+        System.out.println("City: " + address.getCity());
+        System.out.println("Id: " + address.getId());
+        System.out.println("State: " + address.getState());
+        System.out.println("Street 1: " + address.getStreet1());
+        System.out.println("Street 2: " + address.getStreet2());
+        System.out.println("Version: " + address.getVersion());
+        System.out.println("zipCode: " + address.getZipCode());
+    }
+    
     public static void main(String[] args) {
-        deleteData();
+        //deleteData();
         //createFullAndPartTimeEmployees();
+        
+        try
+        {
+            System.out.println("\nPersons: \n");
+            for (Person person : (List<Person>) javaServiceFacade.getPersonFindAll()) {
+                printPerson(person);
+            }
+
+            System.out.println("\nEmployees: \n");
+            for (Employee employee : (List<Employee>) javaServiceFacade.getEmployeeFindAll()) {
+                printEmployee(employee);
+            }
+
+            System.out.println("\nPartTimeEmployees: \n");
+            for (PartTimeEmployee partTimeEmployee : (List<PartTimeEmployee>) javaServiceFacade.getPartTimeEmployeeFindAll()) {
+                printPartTimeEmployee(partTimeEmployee);
+            }
+
+            System.out.println("\nFullTimeEmployees: \n");
+            for (FullTimeEmployee fullTimeEmployee : (List<FullTimeEmployee>) javaServiceFacade.getFullTimeEmployeeFindAll()) {
+                printFullTimeEmployee(fullTimeEmployee);
+            }
+
+            System.out.println("\nAddress: \n");
+            for (Address address : (List<Address>) javaServiceFacade.getAddressFindAll()) {
+                printAddress(address);
+            }
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
     }
 }
