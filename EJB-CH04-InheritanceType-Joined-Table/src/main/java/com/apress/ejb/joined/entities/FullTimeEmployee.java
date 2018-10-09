@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.apress.ejb.entities;
+package com.apress.ejb.joined.entities;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,7 +20,7 @@ import javax.persistence.Table;
  * @author PC
  */
 @Entity
-@Table(name = "ch04_st_person")
+@Table(name = "ch04_join_ft_employee")
 @NamedQueries({@NamedQuery(name = "FullTimeEmployee.findAll", query = "select fte from FullTimeEmployee fte")})
 public class FullTimeEmployee extends Employee implements Serializable{
     private static final long serialVersionUID = -7301681120809804802L;

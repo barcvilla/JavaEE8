@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.apress.ejb.entities;
+package com.apress.ejb.joined.entities;
 
 import java.io.Serializable;
 import javax.persistence.CascadeType;
@@ -27,17 +27,9 @@ import javax.persistence.Version;
  * @author PC
  */
 @Entity
-@Table(name = "ch04_st_person")
+@Table(name = "ch04_join_person")
 @NamedQueries({@NamedQuery(name = "Person.findAll", query = "select p from Person p")})
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-/**
- * Cuando mapeamos multiples entidades a una sola tabla, utilizamos InheritanceType.SINGLE_TABLE, debe existir una manera
- * de identificar un tipo de entidad concreta en una especifica fila en la tabla. Para determinar el tipo de entidad, el 
- * manager de persistencia busca una columna llamada DTYPE en la raiz de la entidad para obtener esta informacion. Si nuestro
- * esquema requiere un diferente nombre de columna para capturar esta informacion, podemos utilizar la anotacion
- * @DiscriminatorColumn para identificar que columna JPA debe usar.
- */
-@DiscriminatorColumn(name = "type")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Person implements Serializable{
     private static final long serialVersionUID = 5291172566067954515L;
     @Id
