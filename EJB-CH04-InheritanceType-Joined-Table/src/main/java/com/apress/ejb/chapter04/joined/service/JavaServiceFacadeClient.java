@@ -151,8 +151,8 @@ public class JavaServiceFacadeClient {
     }
     
     public static void main(String[] args) {
-        //deleteData();
-        createFullAndPartTimeEmployees();
+        deleteData();
+        //createFullAndPartTimeEmployees();
         /**
         try
         {
@@ -185,6 +185,6 @@ public class JavaServiceFacadeClient {
         {
             ex.printStackTrace();
         }
-        * */
+        */
     }
 }
