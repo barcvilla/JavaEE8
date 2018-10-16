@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.apress.ejb.chapter04.joined.service;
+package com.apress.ejb.joined.service;
 
 import com.apress.ejb.joined.entities.Address;
 import com.apress.ejb.joined.entities.Employee;
