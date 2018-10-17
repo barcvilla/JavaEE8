@@ -37,7 +37,7 @@ public class JavaServiceFacadeClient {
             //  Create FullTimeEmployee and PartTimeEmployee instances, along with their Address
             //  objects, and persist them in the database.
             //-----------------------------------------------------------------------------------
-            /**
+            
             Address add = new Address();
             add.setCity("San Mateo");
             add.setState("CA");
@@ -90,7 +90,18 @@ public class JavaServiceFacadeClient {
             for (Address address : (List<Address>) javaServiceFacade.getAddressFindAll()) {
                 printAddress(address);
             }
-            **/
+            
+            //-----------------------------------------------------------------
+            // Demostracion de Relaciones Polimorficas usando JPQL
+            //-----------------------------------------------------------------
+            String query = "select o from Employee o where o.homeAddress.city = :city";
+            String city = "San Mateo";
+            List<Employee> listEmployees = javaServiceFacade.queryCityEmployee(query, city);
+            for(Employee emp : listEmployees)
+            {
+                System.out.println(emp.getFirstName());
+                System.out.println(emp.getLastName());
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }

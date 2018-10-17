@@ -15,6 +15,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -52,6 +53,12 @@ public class JavaServiceFacade {
             query = query.setMaxResults(maxResults);
         }
         return query.getResultList();
+    }
+    
+    public List<Employee> queryCityEmployee(String jpqlStmt, String city)
+    {
+        TypedQuery<Employee> query = em.createQuery(jpqlStmt, Employee.class);
+        return query.setParameter("city", city).getResultList();
     }
 
     public <T> T persistEntity(T entity) {
