@@ -102,6 +102,14 @@ public class JavaServiceFacadeClient {
                 System.out.println(emp.getFirstName());
                 System.out.println(emp.getLastName());
             }
+            
+            // USING THE CRITERIA QUERY API
+            List<Address> addresses = javaServiceFacade.getAddressFindByCity(city);
+            for(Address address : addresses)
+            {
+                System.out.println("Id: " + address.getId() + " city: " + address.getCity());
+            }
+            
         } catch (Exception ex) {
             ex.printStackTrace();
         }

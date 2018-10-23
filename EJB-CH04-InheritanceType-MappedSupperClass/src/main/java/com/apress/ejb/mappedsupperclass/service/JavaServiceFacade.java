@@ -16,6 +16,10 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -55,10 +59,34 @@ public class JavaServiceFacade {
         return query.getResultList();
     }
     
+    // USING POLYMORPHIC JPQL QUERIES
     public List<Employee> queryCityEmployee(String jpqlStmt, String city)
     {
         TypedQuery<Employee> query = em.createQuery(jpqlStmt, Employee.class);
         return query.setParameter("city", city).getResultList();
+    }
+    
+    //USING THE QUERY CRITERIA API
+    public List<Address> getAddressFindByCity(String city)
+    {
+        //definimos una consulta que retorna objetos de tipo Address
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Address> criteriaQuery = criteriaBuilder.createQuery(Address.class);
+        Root<Address> address = criteriaQuery.from(Address.class);
+        
+        // Add the Select  clause
+        criteriaQuery.select(address);
+        
+        //definimos un predicado en la clausula WHERE para comparar la propiedad city con el valor del parametro
+        ParameterExpression<String> p = criteriaBuilder.parameter(String.class, "city");
+        criteriaQuery.where(criteriaBuilder.equal(address.get("city"), p));
+        
+        //enlazamos el parametro city
+        TypedQuery<Address> query = em.createQuery(criteriaQuery);
+        query.setParameter("city", city);
+        
+        // retornamos el query result como una List<Address>
+        return query.getResultList();
     }
 
     public <T> T persistEntity(T entity) {
