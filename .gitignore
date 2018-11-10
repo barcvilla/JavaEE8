@@ -8,3 +8,15 @@
 /EJB-CH04-InheritanceType-Joined-Table/target/
 /EJB-CH04-InheritanceType-Table-Per-Clas/target/
 /EJB-CH04-InheritanceType-MappedSupperClass/target/
+/EJB-CH06-WebService/target/
+/EJB-CH06-WebService-Client/target/
+/EJB-CH05-EJB-Message-Driven-Beans/nbproject/private/
+/EJB-CH07-ServiceIntegration/nbproject/private/
+/EJB-CH07-ServiceIntegration/EJB-CH07-ServiceIntegration-war/nbproject/private/
+/EJB-CH07-ServiceIntegration/EJB-CH07-ServiceIntegration-ejb/nbproject/private/
+/EJB-CH07-ServiceIntegration/EJB-CH07-ServiceIntegration-jpa/target/
+/EJB-CH07-ServiceIntegration/EJB-CH07-ServiceIntegration-ejb/build/
+/EJB-CH07-ServiceIntegration/EJB-CH07-ServiceIntegration-ejb/dist/
+/EJB-CH07-ServiceIntegration-WebService/nbproject/private/
+/EJB-CH07-ServiceIntegration-WebService/dist/
+/EJB-CH07-ServiceIntegration-WebService/build/
