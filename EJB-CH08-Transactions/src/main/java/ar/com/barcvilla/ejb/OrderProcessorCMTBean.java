@@ -5,10 +5,15 @@
  */
 package ar.com.barcvilla.ejb;
 
+import com.apress.ejb.chapter07.entities.CartItem;
 import com.apress.ejb.chapter07.entities.Customer;
+import com.apress.ejb.chapter07.entities.CustomerOrder;
+import com.apress.ejb.chapter07.entities.OrderItem;
 import com.apress.ejb.chapter07.entities.Wine;
 import com.apress.ejb.chapter07.entities.test.PopulateDemoData;
 import com.apress.ejb.chapter07.util.Ini;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
@@ -64,6 +69,56 @@ public class OrderProcessorCMTBean {
      * y commit sobre la terminacion satisfactoria del metodo
      * @return un mensaje de status (texto plano)
      */
+    public CustomerOrder createCustomerOrder(Customer customer)
+    {
+        return createCustomerOrderUsingSupports(customer);
+    }
+    
+    /**
+     * Si un contexto de transaccion esta disponible, este es usado por el metodo, si no hay un contexto de transaccion 
+     * disponible, entonces el contenedor invoca el metodo sin un contexto de transaccion
+     * @param customer
+     * @return 
+     */
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    public CustomerOrder createCustomerOrderUsingSupports(Customer customer)
+    {
+        if(customer == null)
+        {
+            throw new IllegalArgumentException("OrderProcessingBean.createCustomerOrder():  Customer not specified");
+        }
+        
+        if(!em.contains(customer))
+        {
+            customer = em.merge(customer);
+        }
+        
+        final CustomerOrder customerOrder = new CustomerOrder();
+        customer.addCustomerOrder(customerOrder);
+        
+        final Timestamp orderDate =  new Timestamp(System.currentTimeMillis());
+        final List<CartItem> cartItemList = new ArrayList(customer.getCartItemList());
+        for(CartItem cartItem : cartItemList)
+        {
+            // creamos un nuevo OrderItem para este CartItem
+            final OrderItem orderItem = new OrderItem();
+            orderItem.setOrderDate(orderDate);
+            orderItem.setPrice(cartItem.getWine().getRetailPrice());
+            orderItem.setQuantity(cartItem.getQuantity());
+            orderItem.setStatus("Order Created");
+            orderItem.setWine(cartItem.getWine());
+            customerOrder.addOrderItem(orderItem);
+            
+            //eliminamos el CartItem
+            customer.removeCartItem(cartItem);
+        }
+        return persistEntity(customerOrder);
+    }
+    
+    public <T> T persistEntity(T entity) {
+    em.persist(entity);
+    return entity;
+  }
     
     /**
      * select o from Customer o where o.email = :email
