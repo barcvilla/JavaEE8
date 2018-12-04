@@ -63,13 +63,6 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>ar.com.barcvilla.swing</groupId>
-            <artifactId>EJB-CH07-ServiceIntegration-jpa</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>C:\AppServers\EJB-CH07-ServiceIntegration-jpa-1.0</systemPath>
-        </dependency>
     </dependencies>
 
     <build>
