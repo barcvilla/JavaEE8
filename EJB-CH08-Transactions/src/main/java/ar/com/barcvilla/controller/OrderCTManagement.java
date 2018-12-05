@@ -83,6 +83,7 @@ public class OrderCTManagement extends HttpServlet {
             
             for(int i = 0; i < 5; i++)
             {
+                // Creamos una objeto Wine
                 final Wine wine = new Wine();
                 wine.setCountry("United States");
                 wine.setDescription("Delicious wine");
@@ -91,6 +92,12 @@ public class OrderCTManagement extends HttpServlet {
                 wine.setRetailPrice(new Float(20.00D + i));
                 wine.setVarietal("Zinfandel");
                 wine.setYear(2000 + i);
+                // Persistimos explicitamente el objeto Wine. Este es el unico objeto persistido explicitamente
+                // los demas objetos creados estan asociados directa o indirectamente con la instancia customer y ellos existen
+                // en el contexto del metodo del servlet
+                // No hay ninguna transaccion involucrada en este proceso de crear estas entiedades, solo consiste en la 
+                // asignacion de sus propiedades ordinarias. Las instancias Wine no estan asociadas con otros objetos por ello
+                // no hay reglas de cascada, asi que ellas pueden ser persistidas explicitamente.
                 orderProcessorCMT.persistEntity(wine);
                 
                 final CartItem cartItem = new CartItem();

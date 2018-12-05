@@ -26,8 +26,9 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 /**
- * Order Processor Bean Context Management Transaction En este Ejb Stateless
- * Session Bean declaramos el comportamiento Transactional.
+ * Este Stateless session bean no declara explicitamente su comportamiento transaccional y asume el valor TransactionManagement
+ * por defecto : ContainerManagerTransaction la cual es equivalente a la anotacion:
+ * @TransactionAttribute(TransactionAttributeType.CONTAINER)
  *
  * @author PC
  */
@@ -43,6 +44,12 @@ public class OrderProcessorCMTBean {
      * Eliminamos el cliente existente con el email wineapp@yahoo.com y
      * cualquier vino existente con el coutry : United States El contenedor EJB
      * se encargara que este trabajo se realice en un contexto transactional.
+     * Este metodo no es anotado con un TransactionAttribute y OrderProcessorCMTBean no sobre escribe el TransactionAttribute
+     * por defecto para todos sus metodos a nivel de bean. Este metodo asume el valor del atributo de transaccion por defecto
+     * el cual es: @TransactionAttribute(TransactionAttributeType.REQUIRED)
+     * Desde que el cliente ha iniciado o heredado una transaccion, una es creada e iniciada por el EJB Container durante toda
+     * la duracion del metodo initialize() y todos los cambios son aplicados cuando se completa la ejecucion de metodo de forma
+     * exitosa
      */
     public String initialize() {
         StringBuffer strBuf = new StringBuffer();

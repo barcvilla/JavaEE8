@@ -14,6 +14,14 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+/**
+ * JavaServiceFacade obtiene el EntityManager del EntityManagerFactory y asi, el ciclo de vida de EntityManager es ahora
+ * responsabilidad del facade en lugar del container. 
+ * Un EntityManager RESORCE_LOCAL provee a su client con un objeto EntityTransaction para manejar las transacciones.
+ * El metodo commitTransaction(). Este facade nos permite llamar al metodo commitTransaction() a final de cada metodo
+ * que actualiza el persistence context
+ * @author PC
+ */
 public class JavaServiceFacade {
   private final EntityManagerFactory emf;
   private final EntityManager em;
@@ -42,6 +50,9 @@ public class JavaServiceFacade {
   /**
    * All changes that have been made to the managed entities in the persistence context are applied
    * to the database and committed.
+   * Debemos elegir begin transaction antes de cualquier cambio sea aplicado al contexto de persistencia o posponer
+   * el inicio de la transaccion hasta que se este listo de commit. En este ejemplo posponemos la llamada a begin()
+   * dentro del metodo commitTransaction()
    */
   private void commitTransaction() {
     final EntityTransaction entityTransaction = em.getTransaction();
