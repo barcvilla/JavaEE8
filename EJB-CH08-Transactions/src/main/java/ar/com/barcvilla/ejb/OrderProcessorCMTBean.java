@@ -27,14 +27,17 @@ import javax.persistence.criteria.CriteriaQuery;
 
 /**
  * Este Stateless session bean no declara explicitamente su comportamiento transaccional y asume el valor TransactionManagement
- * por defecto : ContainerManagerTransaction la cual es equivalente a la anotacion:
+ * por defecto : Container Managed Transaction la cual es equivalente a la anotacion:
  * @TransactionAttribute(TransactionAttributeType.CONTAINER)
  *
  * @author PC
  */
 @Stateless(name = "OrderProcessorCMT")
 public class OrderProcessorCMTBean {
-
+    /**
+     * Para demarcar una transaccion, un Enterprise Bean obtiene un recurso EJBContext(esto es, un SessionContext para un session bean)
+     * por medio de injection
+     */
     @Resource
     SessionContext sessionContext;
     @PersistenceContext(unitName = "Chapter08-TransactionSamples-JTA")
