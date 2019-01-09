@@ -64,11 +64,34 @@
             <to-view-id>/cartItems.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <!--
     <navigation-rule>
         <from-view-id>/wineList.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>addtocart</from-outcome>
             <to-view-id>>/addtoCart.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    -->
+    <navigation-rule>
+        <from-view-id>/addtoCart.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/cartItems.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/cartItems.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/processOrder.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/processOrder.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>winehome2</from-outcome>
+            <to-view-id>/winehome.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>
