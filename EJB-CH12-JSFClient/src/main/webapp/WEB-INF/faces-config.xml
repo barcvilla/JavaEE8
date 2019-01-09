@@ -39,4 +39,36 @@
             <to-view-id>/cartItems.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/searchwines.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>gohome</from-outcome>
+            <to-view-id>/winehome.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/wineList.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/wineList.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>addtocart</from-outcome>
+            <to-view-id>/addtoCart.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/addtoCart.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/cartItems.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/wineList.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>addtocart</from-outcome>
+            <to-view-id>>/addtoCart.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

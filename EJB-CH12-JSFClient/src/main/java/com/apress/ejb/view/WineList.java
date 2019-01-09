@@ -16,12 +16,11 @@ import javax.ejb.EJB;
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
-import javax.faces.application.Application;
 import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.FacesContext;
 
 /**
- *
+ * Managed bean que utiliza el backend ejb para obtener una lista de todos los vinos
  * @author PC
  */
 @Named(value = "WineList")
@@ -54,7 +53,7 @@ public class WineList implements Serializable {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ExpressionFactory expressionFactory = ctx.getApplication().getExpressionFactory();
         ELContext eLContext = ctx.getELContext();
-        ValueExpression wineYear = expressionFactory.createValueExpression(eLContext, "#{SearchWines.Country}", String.class);
+        ValueExpression wineYear = expressionFactory.createValueExpression(eLContext, "#{SearchWines.country}", String.class);
         String country = (String)wineYear.getValue(eLContext);
         if(searchFacade == null)
         {

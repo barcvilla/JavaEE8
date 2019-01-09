@@ -71,7 +71,25 @@ public class OrderProcessFacadeBean {
             customer = em.find(Customer.class, customer.getId());
         }
         
+        /**
         if(customer instanceof Individual)
+        {
+            
+        }
+        else if(customer instanceof Distributor)
+        {
+            if("PREFERRED".equals(((Distributor)customer).getMemberStatus()))
+            {
+                processStatus = "Distributor credit check approved";
+            }
+        }
+        else
+        {
+            processStatus = " Invalid Credit Card number or credit check failed";
+        }
+        **/
+        
+        if(processStatus == null)
         {
             CustomerOrder order = new CustomerOrder();
             order.setCreationDate(new Timestamp(System.currentTimeMillis()));
@@ -112,17 +130,6 @@ public class OrderProcessFacadeBean {
                 e.printStackTrace();
             }
             processStatus = "Purchase Order sent for processing to the process queue";
-        }
-        else if(customer instanceof Distributor)
-        {
-            if("PREFERRED".equals(((Distributor)customer).getMemberStatus()))
-            {
-                processStatus = "Distributor credit check approved";
-            }
-        }
-        else
-        {
-            processStatus = " Invalid Credit Card number or credit check failed";
         }
         return processStatus;
     }

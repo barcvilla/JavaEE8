@@ -11,16 +11,19 @@
             <h:form>
                 <h1>Beginning EJB: Wine Store Application</h1>
                 <p>
+                    <!--Lista completa de vinos-->
                     <h:commandLink action="#{WineList.findAllWines()}">
                         <h:outputText value="Complete List of Wines" />
                     </h:commandLink>
                 </p>
                 <p>
+                    <!--Buscar vinos por year, country, varietal-->
                     <h:commandLink action="search">
                         <h:outputText value="Search by Year or Country or Varietal" />
                     </h:commandLink>
                 </p>
                 <p>
+                    <!--Ver shoppingcart y submit orders-->
                     <h:commandLink action="cartitems">
                         <h:outputText value="View Shopping cart and submit order" />
                     </h:commandLink>

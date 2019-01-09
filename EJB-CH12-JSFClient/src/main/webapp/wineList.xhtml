@@ -10,6 +10,8 @@
         <f:view>
             <h:form>
                 <h2> Beginning EJB: Wine Store Application </h2>
+                <!--h:dataTable permite recibir una coleccion d datos renderizados de una propiedad de un managed bean
+                    de tipo java.uitl.List-->
                 <h:dataTable value="#{WineList.winesList}" var="wines"  binding="#{WineList.dataTable1}" id="dataTable1" cellspacing="2" cellpadding="3" border="1" width="80%">
                     <h:column>
                         <f:facet name="header">

@@ -55,4 +55,6 @@ public interface ShoppingCartLocal {
     void removeWineItem(CartItem cartItem);
     
     void setCustomer(Customer customer);
+    
+    String sendOrderToOPC();
 }

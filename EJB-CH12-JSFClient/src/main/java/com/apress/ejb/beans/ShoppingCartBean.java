@@ -77,6 +77,23 @@ public class ShoppingCartBean implements ShoppingCartLocal{
         setCustomer(cust);
         return cust;
     }
+    
+    @Override
+    public String sendOrderToOPC()
+    {
+        String result = null;
+        try
+        {
+            orderProcessFacade.processOrder(customer);
+            result = "Your order has been submitted -  you will be notied about the status via email";
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            result = "An error occured while processing your order, Please contact Customer Service";
+        }
+        return result;
+    }
 
     @Override
     public List<CartItem> getAllCartItems(Customer customer) {
