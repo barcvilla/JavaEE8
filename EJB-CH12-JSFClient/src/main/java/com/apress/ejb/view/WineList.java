@@ -16,120 +16,111 @@ import javax.ejb.EJB;
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
+import javax.faces.application.Application;
 import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 
 /**
- * Managed bean que utiliza el backend ejb para obtener una lista de todos los vinos
+ * Managed bean que utiliza el backend ejb para obtener una lista de todos los
+ * vinos
+ *
  * @author PC
  */
 @Named(value = "WineList")
 @SessionScoped
 public class WineList implements Serializable {
-    
+
     public WineList() {
     }
-    
+
     @EJB
     private SearchFacadeLocal searchFacade;
     List<Wine> wineList = new ArrayList<Wine>();
     private HtmlDataTable dataTable1;
-    
-    public String findAllWines()
-    {
-        if(searchFacade == null)
-        {
+
+    public String findAllWines() {
+        if (searchFacade == null) {
             return "gohome";
-        }
-        else
-        {
+        } else {
             wineList = searchFacade.getWineFindAll();
             return "allwines";
         }
     }
-    
-    public String searchByCountry()
-    {
+
+    public String searchByCountry() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ExpressionFactory expressionFactory = ctx.getApplication().getExpressionFactory();
         ELContext eLContext = ctx.getELContext();
         ValueExpression wineYear = expressionFactory.createValueExpression(eLContext, "#{SearchWines.country}", String.class);
-        String country = (String)wineYear.getValue(eLContext);
-        if(searchFacade == null)
-        {
+        String country = (String) wineYear.getValue(eLContext);
+        if (searchFacade == null) {
             return "gohome";
-        }
-        else
-        {
+        } else {
             wineList = searchFacade.getWineFindByCountry(country);
             return "success";
         }
     }
-    
-    public String searchByVarietal()
-    {
+
+    public String searchByVarietal() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ExpressionFactory expressionFactory = ctx.getApplication().getExpressionFactory();
         ELContext eLContext = ctx.getELContext();
         ValueExpression wineYear = expressionFactory.createValueExpression(eLContext, "#{SearchWines.varietal}", String.class);
-        String varietal =  (String)wineYear.getValue(eLContext);
-        if(searchFacade == null)
-        {
+        String varietal = (String) wineYear.getValue(eLContext);
+        if (searchFacade == null) {
             return "gohome";
-        }
-        else
-        {
+        } else {
             wineList = searchFacade.getWineFindByVarietal(varietal);
             return "success";
         }
     }
-    
-    public String searchByYear()
-    {
+
+    public String searchByYear() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ExpressionFactory expressionFactory = ctx.getApplication().getExpressionFactory();
         ELContext eLContext = ctx.getELContext();
         ValueExpression wineYear = expressionFactory.createValueExpression(eLContext, "#{SearchWines.year}", String.class);
-        String year = (String)wineYear.getValue(eLContext);
-        if(searchFacade == null)
-        {
+        String year = (String) wineYear.getValue(eLContext);
+        if (searchFacade == null) {
             return "gohome";
-        }
-        else
-        {
+        } else {
             wineList = searchFacade.getWineFindByYear(new Integer(year));
             return "success";
         }
     }
-    
-    public String invokeAddToCart()
-    {
+
+    public String invokeAddToCart() {
+        /*
         Wine addWine = (Wine)this.dataTable1.getRowData();
         FacesContext ctx = FacesContext.getCurrentInstance();
         ExpressionFactory expressionFactory = ctx.getApplication().getExpressionFactory();
         ELContext eLContext = ctx.getELContext();
         ValueExpression valueExpression = expressionFactory.createValueExpression(eLContext, "#{JSFShoppingCart.selectedWine}", Wine.class);
         valueExpression.setValue(eLContext, addWine);
-        return "addtocart";
+        return "addtoCart";
+         */
+        Wine addWine = (Wine) this.getDataTable1().getRowData();
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        Application app = ctx.getApplication();
+        ValueBinding binding = app.createValueBinding("#{JSFShoppingCart.selectedWine}");
+        binding.setValue(ctx, addWine);
+        return "addtoCart";
     }
-    
-    public void setWinesList(List<Wine> winesList)
-    {
+
+    public void setWinesList(List<Wine> winesList) {
         this.wineList = winesList;
     }
-    
-    public List<Wine> getWinesList()
-    {
+
+    public List<Wine> getWinesList() {
         return wineList;
     }
-    
-    public void setDataTable1(HtmlDataTable dataTable1)
-    {
+
+    public void setDataTable1(HtmlDataTable dataTable1) {
         this.dataTable1 = dataTable1;
     }
-    
-    public HtmlDataTable getDataTable1()
-    {
+
+    public HtmlDataTable getDataTable1() {
         return dataTable1;
     }
 }

@@ -19,7 +19,9 @@ import javax.ejb.EJB;
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
+import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 
 /**
  *
@@ -75,26 +77,39 @@ public class JSFShoppingCart implements Serializable {
     public void setCartItems(List<CartItem> cartItems) {
         this.cartItems = cartItems;
     }
-    
-    public List<CartItem> getCartItems()
-    {
+
+    public List<CartItem> getCartItems() {
+        /**
+         * FacesContext ctx = FacesContext.getCurrentInstance();
+         * ExpressionFactory expressionFactory =
+         * ctx.getApplication().getExpressionFactory(); ELContext eLContext =
+         * ctx.getELContext(); ValueExpression customerBinding =
+         * expressionFactory.createValueExpression(eLContext,
+         * "#{Login.customer}", Customer.class); Individual customer =
+         * (Individual)customerBinding.getValue(eLContext); ValueExpression
+         * shoppingCartBinding =
+         * expressionFactory.createValueExpression(eLContext,
+         * "#{Login.shoppingCart}", ShoppingCartLocal.class); shoppingCart =
+         * (ShoppingCartLocal)shoppingCartBinding.getValue(eLContext); return
+         * shoppingCart.getAllCartItems(customer);
+        *
+         */
         FacesContext ctx = FacesContext.getCurrentInstance();
-        ExpressionFactory expressionFactory = ctx.getApplication().getExpressionFactory();
-        ELContext eLContext = ctx.getELContext();
-        ValueExpression customerBinding = expressionFactory.createValueExpression(eLContext, "#{Login.customer}", Customer.class);
-        Individual customer = (Individual)customerBinding.getValue(eLContext);
-        ValueExpression shoppingCartBinding = expressionFactory.createValueExpression(eLContext, "#{Login.shoppingCart}", ShoppingCartLocal.class);
-        shoppingCart = (ShoppingCartLocal)shoppingCartBinding.getValue(eLContext);
+        Application app = ctx.getApplication();
+        ValueBinding customerBinding = app.createValueBinding("#{Login.customer}");
+        Individual customer = (Individual) customerBinding.getValue(ctx);
+        ValueBinding shoppingCartBinding = app.createValueBinding("#{Login.shoppingCart}");
+        shoppingCart = (ShoppingCartLocal) shoppingCartBinding.getValue(ctx);
+        System.out.println("cuuuuuuuuustomer: " + customer.getFirstName());
         return shoppingCart.getAllCartItems(customer);
     }
-    
-    public String ProcessOrder()
-    {
+
+    public String ProcessOrder() {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ExpressionFactory expressionFactory = ctx.getApplication().getExpressionFactory();
         ELContext eLContext = ctx.getELContext();
         ValueExpression shoppingCartBinding = expressionFactory.createValueExpression(eLContext, "#{Login.shoppingCart}", ShoppingCartLocal.class);
-        shoppingCart = (ShoppingCartLocal)shoppingCartBinding.getValue(eLContext);
+        shoppingCart = (ShoppingCartLocal) shoppingCartBinding.getValue(eLContext);
         shoppingCart.sendOrderToOPC();
         return "success";
     }
